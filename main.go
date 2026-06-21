@@ -1,14 +1,22 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"net/http"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "<h1>asdasd111231d23bbbbbb</h1>")
-	})
-	fmt.Println("Starting server at port 3000...")
-	http.ListenAndServe(":3000", nil)
+	reader := bufio.NewReader(os.Stdin)
+
+	fmt.Print("Enter number: ")
+	str, _ := reader.ReadString('\n')
+	f, err := strconv.ParseInt(strings.TrimSpace(str), 10, 64)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Printf("Value of %T: %v\n", int(f), f)
+	}
 }
